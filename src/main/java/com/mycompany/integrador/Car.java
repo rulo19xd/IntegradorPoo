@@ -11,7 +11,6 @@ public class Car {
         this.license = license;
         this.driver = driver;
         passenger = 4;
-        System.out.println("Passengers → " + passenger);
     }
 
     void printDataCar() {
