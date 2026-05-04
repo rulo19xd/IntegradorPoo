@@ -9,7 +9,7 @@ public class Integrador {
         bike.printDataBike();
         
         //UBERBIKE
-        UberBike uberBike = new UberBike("AHF973", new Account("Martin Carrizo", "FDOSK37OJF"), "Honda", "XR250");
+        UberBike uberBike = new UberBike("AHF973", new Account("Andres Carrizo", "FDOSK37OJF"), "Honda", "XR250");
         uberBike.printDataBike();
         
         // CAR
