@@ -1,9 +1,12 @@
 com\mycompany\integrador\UberBike.class
 com\mycompany\integrador\Integrador.class
+com\mycompany\integrador\Package.class
+com\mycompany\integrador\DeliveryCar.class
 com\mycompany\integrador\Driver.class
 com\mycompany\integrador\UberBlack.class
 com\mycompany\integrador\UberPool.class
 com\mycompany\integrador\Car.class
+com\mycompany\integrador\DeliveryBike.class
 com\mycompany\integrador\Payments.class
 com\mycompany\integrador\Route.class
 com\mycompany\integrador\CarBasic.class

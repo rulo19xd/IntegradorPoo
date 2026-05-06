@@ -4,7 +4,23 @@ package com.mycompany.integrador;
 public class Integrador {
 
     public static void main(String[] args) {
-                // BIKE
+        
+        //DELIVERY CAR
+        Car car2 = new Car ("AAA111", new Account ("prueba paquete auto", "123"));
+        Package pack = new Package ("Grande");
+        
+        DeliveryCar deliveryCar = new DeliveryCar(car2, pack);
+        deliveryCar.printDataDelivery();
+        
+        //DELIVERY BIKE
+        Bike bike2 = new Bike ("BBB222", new Account ("prueba paquete moto", "321"));
+        Package pack2 = new Package ("Mediano");
+        
+        DeliveryBike deliveryBike = new DeliveryBike(bike2, pack2);
+        deliveryBike.printDataDelivery();
+        
+        
+        // BIKE
         Bike bike = new Bike ("PQJ782", new Account("Lucas Romero", "LMC321"));
         bike.printDataBike();
         
