@@ -5,16 +5,17 @@ import com.mycompany.poo.accounts.User;
 
 public class UberX extends Uber {
 
-    public UberX(
-            Driver driver,
-            User user
-    ){
-
-        super(driver, user);
+    public UberX(Driver conductor, User usuario, double distanciaKm) {
+        super(conductor, usuario, distanciaKm);
     }
 
     @Override
-    public double calculatePrice(double distance){
-        return distance * 150;
+    protected double getTarifaPorKm() {
+        return 150;
+    }
+
+    @Override
+    public String getDescripcion() {
+        return "Viaje UberX";
     }
 }
