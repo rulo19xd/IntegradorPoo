@@ -22,13 +22,13 @@ public class Plataforma {
     private List<Servicio> historial = new ArrayList<>();
 
    public Plataforma() {
-    conductores.add(new Driver("Carlos", "carlos@mail.com", new Car("Toyota", "Corolla", "ABC123", 4, CarType.UBER_X)));
-    conductores.add(new Driver("Ana", "ana@mail.com", new Car("BMW", "Serie3", "DEF456", 4, CarType.UBER_COMFORT)));
-    conductores.add(new Driver("Luis", "luis@mail.com", new Bike("Honda", "CB500", "GHI789", BikeType.NORMAL)));
+    conductores.add(new Driver("Carlos", "carlos@mail.com","23412378","2645029338", new Car("Toyota", "Corolla", "ABC123", 4, CarType.UBER_X)));
+    conductores.add(new Driver("Ana", "ana@mail.com","19298732","2640933892", new Car("BMW", "Serie3", "DEF456", 4, CarType.UBER_COMFORT)));
+    conductores.add(new Driver("Luis", "luis@mail.com","22093241","2647834264", new Bike("Honda", "CB500", "GHI789", BikeType.NORMAL)));
 }
 
-    public User crearUsuario(String nombre, String email) {
-        User u = new User(nombre, email);
+    public User crearUsuario(String nombre, String email, String dni, String telefono) {
+        User u = new User(nombre, email, dni, telefono);
         usuarios.add(u);
         return u;
     }

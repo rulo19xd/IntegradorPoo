@@ -42,6 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
+        btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnUsuarios.setText("Usuarios");
         btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         panelMenu.add(btnUsuarios);
 
+        btnEnvios.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEnvios.setText("Envios");
         btnEnvios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,6 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         panelMenu.add(btnEnvios);
 
+        btnViajes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnViajes.setText("Viajes");
         btnViajes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

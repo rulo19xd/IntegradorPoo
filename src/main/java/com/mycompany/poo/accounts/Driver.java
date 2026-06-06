@@ -9,10 +9,12 @@ public class Driver extends Account {
     public Driver(
             String name,
             String email,
+            String dni,
+            String telefono,
             Vehicle vehicle
     ){
 
-        super(name, email);
+        super(name, email, dni, telefono);
 
         this.vehicle = vehicle;
     }
