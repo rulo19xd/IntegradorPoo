@@ -18,4 +18,7 @@ public class Driver extends Account {
 
         this.vehicle = vehicle;
     }
+    public Vehicle getVehicle() {
+    return vehicle;
+}
 }

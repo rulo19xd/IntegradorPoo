@@ -14,6 +14,7 @@ import com.mycompany.poo.enums.CarType;
 import com.mycompany.poo.enums.BikeType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Plataforma {
 
@@ -59,4 +60,11 @@ public class Plataforma {
     public List<Servicio> getHistorial() {
         return historial;
     }
+    
+    public Driver getConductorAleatorio(){
+        Random random = new Random();
+        return conductores.get(random.nextInt(conductores.size()));
+    }
+    
+    
 }

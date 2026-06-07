@@ -54,6 +54,11 @@ public UsuarioPanel(Plataforma plataforma) {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -184,6 +189,10 @@ public UsuarioPanel(Plataforma plataforma) {
         lblMensaje.setText("Completá todos los campos");
         return;
     }
+   if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
+    lblMensaje.setText("El nombre no puede contener números");
+    return;
+    }
    //Convierto los strings de dni y telefono a int para que solo tome numeros
    try {
        int dniInt = Integer.parseInt(dni);
@@ -216,6 +225,14 @@ public UsuarioPanel(Plataforma plataforma) {
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDniActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+
+    if (Character.isDigit(c)) {
+        evt.consume();
+    } 
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
