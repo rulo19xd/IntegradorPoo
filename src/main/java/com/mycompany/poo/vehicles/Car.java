@@ -14,10 +14,17 @@ public class Car extends Vehicle {
             int passengers,
             CarType type
     ) {
-
         super(brand, model, plate);
 
         this.passengers = passengers;
         this.type = type;
+    }
+
+    public int getPassengers() {
+        return passengers;
+    }
+
+    public CarType getType() {
+        return type;
     }
 }
