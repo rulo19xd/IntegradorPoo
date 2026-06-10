@@ -2,7 +2,7 @@ package com.mycompany.poo.ui;
 import com.mycompany.poo.app.Plataforma;
 import com.mycompany.poo.accounts.User;
 import com.mycompany.poo.services.Servicio;
-
+import com.mycompany.poo.accounts.Driver;
 /**
  *
  * @author juamp
@@ -17,8 +17,11 @@ public ViajePanel(Plataforma plataforma) {
     this.plataforma = plataforma;
     cargarUsuarios();
     cargarTipos();
+    
+    btnConfirmar.setEnabled(false);
 }
 private Plataforma plataforma;
+private boolean viajeCotizado = false;
 
 private void cargarUsuarios() {
     cmbUsuarios.removeAllItems();
@@ -47,15 +50,21 @@ private void cargarTipos() {
         cmbUsuarios = new javax.swing.JComboBox<>();
         cmbTipo = new javax.swing.JComboBox<>();
         txtDistancia = new javax.swing.JTextField();
+        btnConfirmar = new javax.swing.JButton();
+        lblViajeConfirmado = new javax.swing.JLabel();
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Usuario:");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Tipo de viaje:");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Distancia(km):");
 
-        lblResultado.setText("jLabel4");
+        lblResultado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        btnCotizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCotizar.setText("Cotizar");
         btnCotizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,40 +72,57 @@ private void cargarTipos() {
             }
         });
 
+        cmbUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtDistancia.setText("jTextField1");
+        txtDistancia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtDistancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDistanciaActionPerformed(evt);
+            }
+        });
+
+        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
+        lblViajeConfirmado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDistancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addComponent(lblResultado))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btnCotizar)))
-                .addGap(76, 76, 76))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblViajeConfirmado)
+                            .addComponent(lblResultado))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConfirmar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cmbTipo, 0, 115, Short.MAX_VALUE)
+                        .addComponent(cmbUsuarios, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtDistancia)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(btnCotizar))))
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,11 +139,15 @@ private void cargarTipos() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDistancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(btnCotizar)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCotizar)
+                    .addComponent(lblResultado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblResultado)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirmar)
+                    .addComponent(lblViajeConfirmado))
+                .addGap(56, 56, 56))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -125,6 +155,7 @@ private void cargarTipos() {
             try {
         String nombreUsuario = (String) cmbUsuarios.getSelectedItem();
         if (nombreUsuario == null) {
+            viajeCotizado = false;
             lblResultado.setText("No hay usuarios creados");
             return;
         }
@@ -133,12 +164,48 @@ private void cargarTipos() {
                 .findFirst().orElse(null);
         String tipo = (String) cmbTipo.getSelectedItem();
         double distancia = Double.parseDouble(txtDistancia.getText().trim());
+            if (distancia <= 0) {
+    viajeCotizado = false;
+    btnConfirmar.setEnabled(false);
+    lblResultado.setText("La distancia debe ser mayor que 0");
+    lblViajeConfirmado.setText("");
+    return;
+}
+        
         Servicio s = plataforma.pedirViaje(usuario, tipo, distancia);
         lblResultado.setText("Precio: $" + String.format("%.2f", s.calcularPrecio()));
+        viajeCotizado = true;
+        btnConfirmar.setEnabled(true);
     } catch (NumberFormatException e) {
+        viajeCotizado = false;
+        btnConfirmar.setEnabled(false);
         lblResultado.setText("Ingresá una distancia válida");
+        lblViajeConfirmado.setText("");
+        
     }
     }//GEN-LAST:event_btnCotizarActionPerformed
+
+    private void txtDistanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDistanciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDistanciaActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        if (!viajeCotizado) {
+        lblViajeConfirmado.setText("Primero debe cotizar el viaje");
+        return;
+    }
+    Driver conductor = plataforma.getConductorAleatorio();
+
+     lblViajeConfirmado.setText(
+            "Viaje confirmado. Conductor: "
+    + conductor.getName()
+    + " - Vehiculo: "
+    + conductor.getVehicle().getBrand()
+    + " "
+    + conductor.getVehicle().getModel()
+        );                                                                                    
+
+    }//GEN-LAST:event_btnConfirmarActionPerformed
  public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -179,6 +246,7 @@ private void cargarTipos() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnCotizar;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JComboBox<String> cmbUsuarios;
@@ -186,6 +254,7 @@ private void cargarTipos() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblResultado;
+    private javax.swing.JLabel lblViajeConfirmado;
     private javax.swing.JTextField txtDistancia;
     // End of variables declaration//GEN-END:variables
 }
