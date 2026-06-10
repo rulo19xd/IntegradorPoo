@@ -93,8 +93,18 @@ public UsuarioPanel(
                 txtDniActionPerformed(evt);
             }
         });
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
+        });
 
         txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -166,10 +176,26 @@ public UsuarioPanel(
         lblMensaje.setText("Completá todos los campos");
         return;
     }
+   if (!email.contains("@")) {
+    lblMensaje.setText("El email debe contener @");
+    return;
+}
+   
    if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
     lblMensaje.setText("El nombre no puede contener números");
     return;
     }
+   
+   if (!dni.matches("\\d+")) {
+    lblMensaje.setText("El DNI no puede contener letras");
+    return;
+    }
+   
+   if (!telefono.matches("\\d+")) {
+    lblMensaje.setText("El Telefono no puede contener letras");
+    return;
+    }
+   
    //Convierto los strings de dni y telefono a int para que solo tome numeros
    try {
        int dniInt = Integer.parseInt(dni);
@@ -202,14 +228,37 @@ public UsuarioPanel(
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDniActionPerformed
-
+  
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
 
     if (Character.isDigit(c)) {
         evt.consume();
     } 
+   
+    
+    
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        char c = evt.getKeyChar();
+
+    if (!Character.isDigit(c)) {
+    evt.consume();
+    }
+    
+    
+    
+    
+    }//GEN-LAST:event_txtDniKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+    char c = evt.getKeyChar();
+
+    if (!Character.isDigit(c)) {
+    evt.consume();
+    }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
