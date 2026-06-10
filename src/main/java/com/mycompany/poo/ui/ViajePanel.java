@@ -12,15 +12,24 @@ public class ViajePanel extends javax.swing.JPanel {
     /**
      * Creates new form ViajePanel
      */
-public ViajePanel(Plataforma plataforma) {
+public ViajePanel(Plataforma plataforma, OriginFrame frame) {
+    
     initComponents();
+    
     this.plataforma = plataforma;
+    this.frame = frame;
+    
+        cmbUsuarios.setPrototypeDisplayValue(
+        "XXXXXXXXXX"
+    );
+    
     cargarUsuarios();
     cargarTipos();
     
     btnConfirmar.setEnabled(false);
 }
 private Plataforma plataforma;
+private OriginFrame frame;
 private boolean viajeCotizado = false;
 
 private void cargarUsuarios() {
@@ -53,6 +62,8 @@ private void cargarTipos() {
         btnConfirmar = new javax.swing.JButton();
         lblViajeConfirmado = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Usuario:");
 
@@ -74,6 +85,11 @@ private void cargarTipos() {
 
         cmbUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbUsuariosActionPerformed(evt);
+            }
+        });
 
         cmbTipo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -140,14 +156,14 @@ private void cargarTipos() {
                     .addComponent(jLabel3)
                     .addComponent(txtDistancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCotizar)
                     .addComponent(lblResultado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(lblViajeConfirmado))
-                .addGap(56, 56, 56))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,56 +210,32 @@ private void cargarTipos() {
         lblViajeConfirmado.setText("Primero debe cotizar el viaje");
         return;
     }
-    Driver conductor = plataforma.getConductorAleatorio();
+    String tipo = (String) cmbTipo.getSelectedItem();
+
+    Driver conductor = plataforma.getConductorPorTipo(tipo);
+
+    if (conductor == null) {
+        lblViajeConfirmado.setText("No hay conductores disponibles");
+        return;
+    }
+
+    int tiempo = plataforma.generarTiempoLlegada(conductor);
 
      lblViajeConfirmado.setText(
-            "Viaje confirmado. Conductor: "
-    + conductor.getName()
-    + " - Vehiculo: "
-    + conductor.getVehicle().getBrand()
-    + " "
-    + conductor.getVehicle().getModel()
-        );                                                                                    
-
+    "<html>Viaje confirmado.<br>" +
+    "Conductor: " + conductor.getName() +
+    "<br>Vehículo: " +
+    conductor.getVehicle().getBrand() +
+    " " +
+    conductor.getVehicle().getModel() +
+    "<br> Llegara en aproximadamente " + tiempo + " minutos</html>"
+);
     }//GEN-LAST:event_btnConfirmarActionPerformed
- public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViajePanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViajePanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViajePanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViajePanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViajePanel(new com.mycompany.poo.app.Plataforma()).setVisible(true);
-            }
-        });
-    }
+    private void cmbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbUsuariosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;

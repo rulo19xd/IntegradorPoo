@@ -35,24 +35,107 @@ public class Plataforma {
     }
 
     public Servicio pedirViaje(User usuario, String tipo, double distancia) {
-        Driver conductor = conductores.get(0);
-        Servicio s = switch (tipo) {
-            case "UberX" -> new UberX(conductor, usuario, distancia);
-            case "UberComfort" -> new UberComfort(conductor, usuario, distancia);
-            case "UberMoto" -> new UberMoto(conductor, usuario, distancia);
-            default -> throw new IllegalArgumentException("Tipo inválido");
-        };
+
+    Driver conductor = getConductorPorTipo(tipo);
+
+    Servicio s = switch (tipo) {
+        case "UberX" -> new UberX(conductor, usuario, distancia);
+        case "UberComfort" -> new UberComfort(conductor, usuario, distancia);
+        case "UberMoto" -> new UberMoto(conductor, usuario, distancia);
+        default -> throw new IllegalArgumentException("Tipo inválido");
+    };
+
+    historial.add(s);
+
+    return s;
+}
+
+    public Driver getRepartidorPorTamano(PackageSize tamano) {
+
+    for (Driver conductor : conductores) {
+
+        switch (tamano) {
+
+            case SMALL:
+            case MEDIUM:
+
+                if (conductor.getVehicle() instanceof Bike) {
+                    return conductor;
+                }
+                break;
+
+            case LARGE:
+
+                if (conductor.getVehicle() instanceof Car car &&
+                    car.getType() == CarType.UBER_X) {
+
+                    return conductor;
+                }
+                break;
+        }
+    }
+
+    return null;
+    }
+    
+    public Servicio pedirEnvio(User usuario,
+            PackageSize tamano,
+            double distancia) {
+
+        Driver repartidor =
+            getRepartidorPorTamano(tamano);
+
+        Servicio s = new Envio(
+            repartidor,
+            usuario,
+            distancia,
+            tamano
+        );
+
         historial.add(s);
+
         return s;
     }
 
-    public Servicio pedirEnvio(User usuario, PackageSize tamano, double distancia) {
-        Driver repartidor = conductores.get(2);
-        Servicio s = new Envio(repartidor, usuario, distancia, tamano);
-        historial.add(s);
-        return s;
+    public Driver getConductorPorTipo(String tipo) {
+        for (Driver conductor : conductores) {
+            switch (tipo){
+                case "UberX":
+                    if (conductor.getVehicle()instanceof Car car && car.getType() == CarType.UBER_X){
+                        return conductor;
+                    }
+                    break;
+                    
+                    case "UberComfort":
+                if (conductor.getVehicle() instanceof Car car &&
+                    car.getType() == CarType.UBER_COMFORT) {
+                    return conductor;
+                }
+                break;
+
+            case "UberMoto":
+                if (conductor.getVehicle() instanceof Bike) {
+                    return conductor;
+                }
+                break;
+        }
     }
 
+    return null;
+}
+
+public Driver getRepartidor() {
+
+    for (Driver conductor : conductores) {
+
+        if (conductor.getVehicle() instanceof Bike) {
+            return conductor;
+        }
+    }
+
+    return null;
+}
+    
     public List<User> getUsuarios() {
         return usuarios;
     }
@@ -61,10 +144,22 @@ public class Plataforma {
         return historial;
     }
     
-    public Driver getConductorAleatorio(){
-        Random random = new Random();
-        return conductores.get(random.nextInt(conductores.size()));
-    }
     
+   public int generarTiempoLlegada(Driver conductor) {
+
+    Random random = new Random();
+
+    if (conductor.getVehicle() instanceof Bike) {
+        return random.nextInt(4) + 2; // 2-5 min
+    }
+
+    if (conductor.getVehicle() instanceof Car car &&
+        car.getType() == CarType.UBER_COMFORT) {
+
+        return random.nextInt(6) + 6; // 6-11 min
+    }
+
+    return random.nextInt(5) + 4; // UberX 4-8 min
+}
     
 }

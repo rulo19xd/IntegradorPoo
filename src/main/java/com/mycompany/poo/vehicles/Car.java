@@ -20,4 +20,11 @@ public class Car extends Vehicle {
         this.passengers = passengers;
         this.type = type;
     }
+    public CarType getType() {
+        return type;
+    }
+
+    public int getPassengers() {
+        return passengers;
+    }
 }
